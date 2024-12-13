@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/counterFragment">
+    <fragment
+        android:id="@+id/counterFragment"
+        android:name="com.example.homework_3_2.CounterFragment"
+        android:label="Counter"
+        tools:layout="@layout/fragment_counter">
+        <action
+            android:id="@+id/action_counter_to_result"
+            app:destination="@id/resultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/resultFragment"
+        android:name="com.example.homework_3_2.ResultFragment"
+        android:label="Result"
+        tools:layout="@layout/fragment_result" />
+</navigation>
