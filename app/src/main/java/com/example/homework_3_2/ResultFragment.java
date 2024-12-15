@@ -4,8 +4,10 @@ import android.os.Bundle;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.fragment.app.Fragment;
+import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,14 +33,24 @@ public class ResultFragment extends Fragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
 
-        requireActivity().getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
-            @Override
-            public void handleOnBackPressed() {
-                NavHostFragment.findNavController(ResultFragment.this).navigateUp();
-            }
-        });
+        requireActivity().getOnBackPressedDispatcher().addCallback(getViewLifecycleOwner(),
+                new OnBackPressedCallback(true) {
+                    @Override
+                    public void handleOnBackPressed() {
+                        NavController navController = NavHostFragment.findNavController(ResultFragment.this);
+                        if (navController.getPreviousBackStackEntry() != null) {
+                            Log.d("ResultFragment", "Navigating up");
+                            navController.navigateUp();
+                        } else {
+                            Log.d("ResultFragment", "No previous back stack, finishing activity");
+                            requireActivity().finish();
+                        }
+                    }
+                });
     }
+
+
 }
